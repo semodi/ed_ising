@@ -17,6 +17,15 @@ Sebastian Dick; Dec 2016
 - execute `run.sh` 
 - eigenvalues are stored in `out.dat`
 
+##Dependencies
+
+This program uses the linear algebra package **Armadillo**, which is available as open source, using the Mozilla Public License (MPL) 2.0. and can be downloaded at http://arma.sourceforge.net. For more information please see:
+
+Conrad Sanderson and Ryan Curtin. 
+*Armadillo: a template-based C++ library for linear algebra.*
+Journal of Open Source Software, Vol. 1, pp. 26, 2016.
+
+
 ##Files
 
 `ed_config_readable.dat`
