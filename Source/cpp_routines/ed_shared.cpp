@@ -6,28 +6,17 @@
 
 //TODO: Make parsing safer!
 
-/************** BITWISE OPERATIONS ***************/
+#include<string>
+#include<fstream>
+#include<bitset>
+#include<iostream>
+#include"ed_shared.h"
+#include"ed_bitwise.cpp"
 
-inline void  set(long & field,long bit){ //Set bit "bit" to 1 
-  field |= (1 << bit);
-}
-inline void unset(long & field,long bit){ // Unset bit "bit" (Set to 0)
-  field &= ~(1 << bit);
-}
-inline void toggle(long & field,long bit){ // Toggle bit between 1 and 0
-  field ^= (1 << bit);
-}
-inline bool test(long & field,long bit){ // Test whether bit is 1 or 0
- return (field & ( 1 << bit));
-}
 
-inline void set_to(long & field, long bit,bool to){ // Set bit to value "to"
-  if(to){
-    set(field,bit);
-  }else{
-    unset(field,bit);
-  }
-}
+using namespace std;
+
+
 
 // inline void translate(long & field){ //tranlate (move) one bit to the right with PBCs
 //   field = field*2;
@@ -57,33 +46,16 @@ inline void set_to(long & field, long bit,bool to){ // Set bit to value "to"
 // }
 
 /**************** FILE INPUT************************/
+  
 
 long stol(string s){ // Turn string into long 
   long l = 0;
-  for(int i = 0;i < s.size();++i){
+  for(unsigned int i = 0;i < s.size();++i){
     l = 10*l+(s[i]-'0');
   }
   return l;
 }
 
-double stod(string s){ //TODO: does not work yet (Turn string into double)
-  double d = 0;
-  bool comma = false;
-  float divisor = 10.0;
-  
-  for(int i = 0; i< s.size();++i){
-    if(s[i] = ','){
-      comma = true;      
-    }else{  
-      if(!comma){
-        d = 10*d +(s[i]-'0');
-      }else{
-        d = d + ((float)(s[i]-'0'))/divisor;
-        divisor *=10.0;
-      }
-    }
-  }
-}
     
 
 int getParameter(string parameter_str){
@@ -155,14 +127,14 @@ void getSymmetry(int old_sites[], int new_sites[],  int & periodicity,int & eige
       successful = true;
       for (int i = 0 ; i < N; ++i){
         symmetry >> line;
-        old_sites[i] = (int)stol(line);
+        old_sites[i] = (int) stol(line);
       }
       for(int i = 0; i< N;++i){
         symmetry >> line;
-        new_sites[i] = (int)stol(line);
+        new_sites[i] = (int) stol(line);
       }
       symmetry >> line;
-      periodicity = (int)stol(line);
+      periodicity = (int) stol(line);
       symmetry >> line;
       eigenvalue = (int) stol(line);
       break;

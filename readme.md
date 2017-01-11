@@ -7,12 +7,9 @@ Sebastian Dick; Dec 2016
 
 ##How-to
 
-- add desired hamiltonian terms to `ed_hamiltonian.cpp`
-- modify the first lines in `main()` in `ed_main.cpp` in which a pointer for the Hamilton routines is created
+- add desired hamiltonian terms to `ed_hamiltonian.cpp` and adjust the global variables accordingly
 - adjust the input file `ed_config_readable.dat` to include your desired parameters and symmetries (so far only non-negative integers possible)
-- switch to */Source* and run `make`
-- compile `ed_build_dict_gen.cpp` ( e.g. with `g++ ed_build_dict_gen.cpp -o build_dict`)
-- compile `ed_update_config.cpp` ( e.g. with `g++ ed_update_config.cpp -o ed_update`)
+- switch to */Source* and run `make`, `make build_dict` and `make ed_update`, this will create the required executables
 - the loop in the script `run.sh` controls the number of computed momenta. If there is no translational symmetry, make sure to set the upper limit to 1
 - execute `run.sh` 
 - eigenvalues are stored in `out.dat`

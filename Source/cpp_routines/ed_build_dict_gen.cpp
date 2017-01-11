@@ -10,17 +10,18 @@
 #include<bitset>
 #include<string>
 #include<sstream>
-
+#include "ed_shared.h"
+#include "ed_bitwise.cpp"
 
 
 using namespace std;
 
-const char config_path[] = "ed_config.dat";
-const char symmetry_path[] = "ed_config.dat";
+extern const char config_path[] = "ed_config.dat";
+extern const char symmetry_path[] = "ed_config.dat";
 int N;
 int NSym; //Number of applied symmetries
 
-#include "ed_shared.cpp"
+
 
 
 

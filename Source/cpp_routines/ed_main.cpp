@@ -1,6 +1,4 @@
-/**
- * Compile with: g++ ed_main.cpp -o ising -O2 -larmadillo
-*/
+
 
 #include<iostream>
 #include<fstream>
@@ -10,6 +8,9 @@
 #include<string>
 #include<sstream>
 #include<complex>
+#include"ed_shared.h"
+#include"ed_hamiltonian.h"
+#include"ed_bitwise.cpp"
 
 using namespace std;
 
@@ -31,16 +32,21 @@ complex<double>offset; // offset for eigenvalues
 bool PBC = false; //Periodic boundary conditions
 int m[10]; //Multiplicity for each symmetry
 
+/*** Hamiltonian ***/
+typedef long(*Hamilpointer)(long w,int i,bool & sign);
+extern const int hamilton_size;
+extern Hamilpointer Ising[]; //Hamiltonian defined in ed_hamiltonian.cpp
+
+
 #define PI 3.14159265
 #define SQRTWO = 1.414213562;
 
-typedef long(*Hamilpointer)(long w,int i,bool & sign);
+
 
 /*** Flags ***/
 bool WRITEDENSE_FLAG = false;
 
-#include"ed_shared.cpp"
-#include"ed_hamiltonian.cpp"
+
 
 
 
@@ -266,13 +272,7 @@ int Diagonalize(arma::sp_cx_mat & H,arma::cx_vec & eigenvalues,int dict_size,int
 /**************** MAIN ***********************/
 
 int main(){
-  
-  //TODO: put this part in a separate file os that ed_main.cpp doesn't have to be modified 
-  // for different Hamiltonians
 
-  const int hamilton_size = 3;
-  Hamilpointer Ising[hamilton_size] = {H_sigma_z,H_kin_1,H_kin_2}; //Hamiltonian for 1D p-Wave Superconductor
-  
   ofstream out;
   
   int factor = 20;

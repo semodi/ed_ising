@@ -4,8 +4,8 @@
 #include<bitset>
 #include<string>
 #include<sstream>
-
-
+#include"ed_shared.h"
+#include"ed_bitwise.cpp"
 
 using namespace std;
 
@@ -13,9 +13,9 @@ const char config_path[] = "ed_config.dat";
 const char symmetry_path[] = "ed_config.dat";
 int N;
 int NSym = 1;
-int NLine = 3; //Number of elements in one line
 
-#include"ed_shared.cpp"
+
+
 
 int main(){
   ifstream in;
