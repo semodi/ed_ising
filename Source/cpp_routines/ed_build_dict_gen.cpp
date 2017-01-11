@@ -2,7 +2,8 @@
  * 
  * This file contains routines that are used to implement general symmetries that are specified in ed_config.dat
  * and create the corresponding (Hilbert-space) libraries.
- * Sebastian Dick, Wuerzburg 2016 **/
+ * Sebastian Dick, Wuerzburg 2016 
+**/
 
 #include<iostream>
 #include<fstream>
@@ -19,7 +20,7 @@ using namespace std;
 extern const char config_path[] = "ed_config.dat";
 extern const char symmetry_path[] = "ed_config.dat";
 int N;
-int NSym; //Number of applied symmetries
+extern int NSym; //Number of applied symmetries
 
 
 
@@ -94,7 +95,7 @@ void usePartNum(string pathin, string pathout, int partnum){ //partnum: number o
 /***************** ABELIAN SYMMETRIES ************************/
 
 
-/*** General symmetries saved in "ed_symmetry.dat ***/
+/*** General symmetries ***/
 
 int useSymmetry(string pathin, string pathout, const int  old_sites[] ,const int  new_sites[] , const int periodicity, const int eigenvalue, 
                     const int symmetryN){

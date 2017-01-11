@@ -3,7 +3,6 @@
 
 
 extern int N;
-extern int NSym;
 extern const char symmetry_path[];
 extern const char config_path[];
 

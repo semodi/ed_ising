@@ -12,7 +12,6 @@ using namespace std;
 const char config_path[] = "ed_config.dat";
 const char symmetry_path[] = "ed_config.dat";
 int N;
-int NSym = 1;
 
 
 

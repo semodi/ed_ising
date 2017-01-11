@@ -1,5 +1,4 @@
 
-
 #include<iostream>
 #include<fstream>
 #include<cmath>
@@ -27,7 +26,7 @@ int eigenv_div = pow(2,0); // # of computed eigenvalues as fraction of matrix si
 const char config_path[] = "ed_config.dat";
 const char dict_path[] = ".ed_dict_gen.dat";
 const char symmetry_path[] = "ed_config.dat";
-int NSym;//Number of symmetries
+extern int NSym;//Number of symmetries
 complex<double>offset; // offset for eigenvalues
 bool PBC = false; //Periodic boundary conditions
 int m[10]; //Multiplicity for each symmetry
@@ -54,18 +53,20 @@ bool WRITEDENSE_FLAG = false;
 
 inline void fill(int a,int b,arma::uword & loc0, arma::uword & loc1,arma::uword & loc2, arma::uword & loc3,
           complex<double> & value1,complex<double> & value2, complex<double> fillwith,bool sign = true){
-   /** Adds entries to the Hamiltonian matrix
 
+	//TODO: Adding the second matrix entry to make sure the matrix is hermitian is now redundant
+	// and is taken care of in main() routine. Adjust arguments in fill();
+
+
+   /** Adds entries to the Hamiltonian matrix
    Assigned values:
    a: line
    b: column
    fillwith: entry
-
    Stored in:
    loc0: line
    loc1: column
    value1: entry
-
    */
     const double s = (-1+2*((int)sign));
     
@@ -73,21 +74,18 @@ inline void fill(int a,int b,arma::uword & loc0, arma::uword & loc1,arma::uword 
     loc1 = b;
     value1 = fillwith*s;
 	
-	//TODO: Adding the second matrix entry to make sure the matrix is hermitian is now redundant
-	// and is taken care of in main() routine. Delete and adjust fill();
-	// symmetric entry
+	
+	
 
 
 }
 
 int findState(long field,long dict [], int dict_size){
   /** finding the pure state in dictionary by bisection (binary search algorithm)
-
   field : pure state that we want to find 
   dict : dictionary between representative and pure states 
     dict[representative] = pure
   dict_size: size of the dictionary
-
   */
 
   int L = 0;
@@ -118,12 +116,10 @@ int findState(long field,long dict [], int dict_size){
 
 int findRepresentative(long field, int new_sites[], int periodicity, long dict [], int dict_size,int & l){
   /* Inverse operation to findState: takes pure state and returns representative
-
   field : pure state
   dict : dictionary between rep. and pure states
     dict[rep] = pure
   dict_size: number of entries in dictionary
-
   */
   long save_field = field;
   int cnt = 0;
@@ -166,12 +162,12 @@ void Build_H(arma::umat & locations,arma::cx_vec & values, Hamilpointer HPointer
   
   
   //-----------------------ISING---------------------------------
-  //TODO: so far sign factors cannot be parsed, hence the 'manual' minus signs
+  // TODO: generalize to more than 3 Hamiltonian terms
 
   double coupl[3];
-  coupl[0] = -.5 * (double) getParameter("$par1"); //Diagonal * 0.5 (2*0.5 = 1 when we make H hermitian later on)
-  coupl[1] = -1.0 * (double) getParameter("$par2");
-  coupl[2] = 1.0 * getParameter("$par3");
+  coupl[0] = .5 * (double) getParameter("$par1"); //Diagonal * 0.5 (2*0.5 = 1 when we make H hermitian later on)
+  coupl[1] = (double) getParameter("$par2");
+  coupl[2] = (double) getParameter("$par3");
   
   
   
@@ -275,13 +271,10 @@ int main(){
 
   ofstream out;
   
-  int factor = 20;
+ 
 
   // Get Parameters from "config_path"
   N = getParameter("$Length");
-  par[0] = getParameter("$par1");
-  par[1] = getParameter("$par2");
-  par[2] = getParameter("$par3");
   NSym = getParameter("$NSym");
   WRITEDENSE_FLAG = (bool)getParameter("$DenseFlag");
   eigenv_div = pow(2,getParameter("$eigenv"));
@@ -289,13 +282,7 @@ int main(){
   PBC = (bool) getParameter("$pbc");
   
   
-  int stopat = factor*pow(2,N)-1; 
   
-    //Opening output file
-//   char datchar[100];
-//   char datchar_im[100];
-//   make_filename(datchar,datchar_im);
-//   out.open(datchar,ios::trunc);
   
   
   //--------------------------Load dictionary--------------------------------------------
@@ -339,6 +326,7 @@ int main(){
       
   //-------------- Build Hamiltonian -------------------------------------
   
+  int factor = 20;
   arma::umat locations(2,factor*dict_size,arma::fill::zeros); //locations of matrix entries (row,column)
   arma::cx_vec values(factor*dict_size,arma::fill::zeros); //values of matrix entries (complex!)
             
@@ -348,7 +336,7 @@ int main(){
   Build_H(locations, values, Ising,hamilton_size,dict[1],dict_size); //Build Hamiltonian
   cout << "done" << endl;
   
-  
+  int stopat = 0;
   //Obtain number of non-zero entries in 'locations' TODO: There has to be a better way... Works pretty well though
   for (int i = 0; i< factor*dict_size-1; ++i){
       if (locations(0,i) == 0.0 and locations(1,i) == 0.0 and abs(values(i)) == 0
@@ -415,5 +403,4 @@ int main(){
   
   return 0;
 }
-
 

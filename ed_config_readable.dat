@@ -6,7 +6,7 @@
 ### the numerical parameter can be found in line that follows.			
 ### Make sure there are no whitespaces.	
 ###
-### IMPORTANT: So far only non-negative integer values are supported					
+### IMPORTANT: So far only integer values are supported					
 
 
 
@@ -35,14 +35,17 @@ $pbc
 
 #System size
 $Length
-12
+8
 
 # Interaction strength, hopping etc.
 
+#Diagonal term
 $par1
-1
+-1
+
+#Non-diagonal terms
 $par2
-1
+-1
 $par3
 1
 
@@ -62,35 +65,36 @@ $Parity
 0
 
 #Symmetry lib
+
+#Don't change for now!
+#Number of symmetries (Number con. and ferm. parity not included)
 $NSym
 1
 
+#Don't change for now!
 $Symmetries
 Sym1
 end
 
-#Translational Symmetry
+#Translational Symmetry (can be modified to implement other symmetries)
+
+#Symcnt 
+#	picks the momentum eigenvalue from the list Symrow (default: 0), is automatically augmented by ed_update
+#Symrow 
+#	list of eigenvalues/ Hilbert-space sectors for which H is being diagonalized
+#Sym1 
+#	description of the symmetry transformation (in this case: translation) 
+#	1st line gives the original sites, 
+#	2nd line the transformed sites,
+#	3rd line gives the periodicity of the transformation (number of sites for translation)
+# 	4th line, keep at '0'!	
+
 $Symcnt
 0
 $Symrow
-0	1	2	3	4	5	6	7	
+0	1	2	3	4	5	6	7
 $Sym1
 0	1	2	3	4	5	6	7	
 1	2	3	4	5	6	7	0
 8
 0
-
-
-#Mirror Symmetry
-$Sym2cnt
-0
-$Sym2row
-0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15
-$Sym2
-0	1	2	3	4	5	6	7	8	9	10	11
-11	10	9	8	7	6	5	4	3	2	1	0
-1
-1
-
-
-

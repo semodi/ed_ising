@@ -1,3 +1,4 @@
+
 /** ed_shared.cpp
  * 
  * This is a library shared by all exact diagonalization programs.
@@ -16,6 +17,7 @@
 
 using namespace std;
 
+int NSym;
 
 
 // inline void translate(long & field){ //tranlate (move) one bit to the right with PBCs
@@ -45,15 +47,23 @@ using namespace std;
 //   
 // }
 
-/**************** FILE INPUT************************/
+/**************** FILE INPUT ************************/
   
 
 long stol(string s){ // Turn string into long 
   long l = 0;
-  for(unsigned int i = 0;i < s.size();++i){
+  int start = 0;
+  int sign = 1;
+
+  if(s[0] =='-'){
+	sign = -1;
+	start = 1;
+  }
+ 
+  for(unsigned int i = start;i < s.size();++i){
     l = 10*l+(s[i]-'0');
   }
-  return l;
+  return sign*l;
 }
 
     
@@ -67,7 +77,7 @@ int getParameter(string parameter_str){
   ifstream config;
   config.open(config_path);
   
-  int par = 0;
+  int par = -9876;
   string line; 
   while(!config.eof()){
     config >> line;
@@ -77,8 +87,11 @@ int getParameter(string parameter_str){
         break;
     }
   }
+
+  if (par==-9876) cerr << "Parameter -9876 or not found" << endl;
   config.close();
   return par;
+
   
   
 }
@@ -102,6 +115,7 @@ void getSymmetryNames(string names[]){
         config >> line;
         while(line != "end" && cnt < 10){
           names[cnt++] = line;
+		  cout << line << endl;
           config >> line;
         }
         break;
@@ -168,3 +182,4 @@ int getMultiplicity(long field, const int periodicity,const int new_sites[]){
   }
   return periodicity;
 }
+
