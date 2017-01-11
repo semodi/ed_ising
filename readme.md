@@ -22,5 +22,8 @@ Conrad Sanderson and Ryan Curtin.
 *Armadillo: a template-based C++ library for linear algebra.*
 Journal of Open Source Software, Vol. 1, pp. 26, 2016.
 
+##To-do:
 
+- Combine ising, build_dict and ed_update into one program, and integrate the loop that is now located in run.sh into main().
+- Parallel computation with OpenMP. A first step would be to parallelize the computation for different momentum eigenvalues. Eventually parallel comp. should be possible even if no translational symmetry is present.
 
