@@ -1,11 +1,11 @@
-#ed_ising
+# ed_ising
 
 Exact diagonalization procedures for the Ising model (can be easily extended to
 other 1d - Hamiltonians).
 
 Sebastian Dick; Dec 2016
 
-##How-to
+## How-to
 
 - add desired hamiltonian terms to `ed_hamiltonian.cpp` and adjust the global variables accordingly
 - adjust the input file `ed_config_readable.dat` to include your desired parameters and symmetries (so far only non-negative integers possible)
@@ -14,7 +14,7 @@ Sebastian Dick; Dec 2016
 - execute `run.sh` 
 - eigenvalues are stored in `out.dat`
 
-##Dependencies
+## Dependencies
 
 This program uses the linear algebra package **Armadillo**, which is available as open source, using the Mozilla Public License (MPL) 2.0. and can be downloaded at http://arma.sourceforge.net. For more information please see:
 
@@ -22,7 +22,7 @@ Conrad Sanderson and Ryan Curtin.
 *Armadillo: a template-based C++ library for linear algebra.*
 Journal of Open Source Software, Vol. 1, pp. 26, 2016.
 
-##To-do:
+## To-do:
 
 - Combine ising, build_dict and ed_update into one program, and integrate the loop that is now located in run.sh into main().
 - Parallel computation with OpenMP. A first step would be to parallelize the computation for different momentum eigenvalues. Eventually parallel comp. should be possible even if no translational symmetry is present.
